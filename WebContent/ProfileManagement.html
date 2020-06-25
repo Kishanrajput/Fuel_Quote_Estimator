@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile Management</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+					<div class="user_dropdown" style="display:none">
+						<!--  <div class="dropdown_action" href="#">About Us</div> -->
+						<div class="dropdown_action" onclick="naviateToProfile()">User Profile</div>
+						<div class="dropdown_action" onclick="navigateToFuelquote()">Fuel Quote</div>
+						<div class="dropdown_action" onclick="return logout()">Log Out</div>
+					</div>
+					<div class="glyphicon glyphicon-user userIcon" onclick="openDropdown()"></div>
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+		<!-- Register page -->	
+		<div class="col-lg-4 d-flex justify-content-center h-100 ProfileDiv">
+		<div class="card col-lg-12"  style="height: auto;">
+			<div class="card-header">
+				<h3 class="profileText">Your Profile</h3>
+			</div>
+			<div class="card-body col-lg-12">
+				<form>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">First Name*  </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="30" id="firstname" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Last name*  </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="30" id="lastname" required></span>
+						</div>
+					</div>
+					
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Email*  </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="50" id="email" required></span>
+						</div>
+					</div>
+					
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Phone </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="10" id="phone" required></span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Address-1* </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="100" id="add1" required></span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Address-2 </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="100" id="add2"></span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10" >
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">State* </span>
+							<span><Select class="username-profile form-control" id="state">
+								  <option value="None">Select</option>
+								  <option value="TX">TX</option>
+								  <option value="CA">CA</option>
+								</select>
+							</span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">City* </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="100" id="city" required>
+							</span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="user-profile-label floatLeft">Zip* </span>
+							<span><input type="text" class="username-profile form-control" placeholder="" maxlength="9" id="zip" required></span>
+						</div>
+					</div>
+					
+					
+					<div class="form-group" style="text-align: center;">
+						<input type="submit" value="Update" class="btn float-right login_btn" onclick="return validate()">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- End of register -->
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+
+<script>
+	function openDropdown(){
+		$('.user_dropdown').toggle();
+	}
+
+	function navigateToFuelquote(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/FuelQuote.html";
+	}
+	
+	function naviateToProfile(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/ProfileManagement.html";
+	}
+	
+	function validateEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(String(email).toLowerCase());
+	}
+	
+	function validate()
+	{
+		var fname = document.getElementById("firstname");
+		var lname = document.getElementById("lastname");
+		var email = document.getElementById("email");
+		var phone = document.getElementById("phone");
+		var add1 = document.getElementById("add1");
+		var add2 = document.getElementById("add2");
+		var city = document.getElementById("city");
+		var zip = document.getElementById("zip");
+		var stateelement = document.getElementById("state");
+		var state = stateelement.options[stateelement.selectedIndex].value;
+		
+		if(state == "None")
+		{
+			alert("Please select state!");
+			return false;
+		}
+		
+		if(zip.value.length < 5)
+		{
+			alert("Please enter a valid zip code!");
+			zip.value = "";
+			return false;
+		}
+		
+		if(!validateEmail(email.value))
+		{
+			alert("Please enter a valid email address.");
+			return false;
+		}
+		
+		var dict = {};
+		//dict['username'] = "Kishansingh";			//Since DB is not completely implemented we are passing a dummy username here!
+		dict['username'] = localStorage.getItem("useridentity");
+		dict['firstname'] = fname.value.trim();
+		dict['lastname'] = lname.value.trim();
+		dict['emailId'] = email.value.trim();
+		dict['phoneNumber'] = phone.value.trim();
+		dict['address1'] = add1.value.trim();
+		dict['address2'] = add2.value.trim();
+		dict['city'] = city.value.trim();
+		dict['zip'] = zip.value.trim();
+		dict['state'] = state;
+		
+		var dta = JSON.stringify(dict);
+		//alert(dta);
+		
+		$.ajax({
+			type:'POST',
+			contentType: 'application/json',
+			data: dta,
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/user/create',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+					
+					$('.loader').toggle();
+				
+					alert(data);
+					if(data == "Profile Updated successfully!")
+					{
+						
+						window.location ="http://localhost:8080/Fuel_Price_Predictor/FuelQuote.html";
+					}
+					
+			},
+		})
+		
+		return false;
+	}
+	
+	
+	
+	$(document).ready(function() {
+		
+		if(localStorage.getItem("useridentity") == null)
+		{
+			window.location ="http://localhost:8080/Fuel_Price_Predictor/index.html";
+		}
+		
+		var statebox = document.getElementById("state");
+		statebox.innerHTML="";
+		populateStates(statebox);
+		
+		var fname = document.getElementById("firstname");
+		var lname = document.getElementById("lastname");
+		var email = document.getElementById("email");
+		var phone = document.getElementById("phone");
+		var add1 = document.getElementById("add1");
+		var add2 = document.getElementById("add2");
+		var city = document.getElementById("city");
+		var zip = document.getElementById("zip");
+		var stateelement = document.getElementById("state");
+		var state = stateelement.options[stateelement.selectedIndex];
+		var dict = {};
+		dict['username'] = localStorage.getItem("useridentity");
+		var dta = JSON.stringify(dict);
+		
+		$.ajax({
+			type:'POST',
+			contentType: 'application/json',
+			data: dta,
+			dataType: 'json',
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/user/populate',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+				
+				$('.loader').toggle();
+				
+				if(data.Error == "No Error")
+				{
+					fname.value = data.firstname;
+					lname.value = data.lastname;
+					email.value = data.emailId;
+					phone.value = data.phone;
+					add1.value = data.add1;
+					add2.value = data.add2;
+					city.value = data.city;
+					zip.value = data.zip;
+					document.getElementById("state").value = data.state;
+				}
+				else if(data.Error == "NoProfile")
+				{
+					
+				}
+				else{
+					alert(data.Error);
+				}
+				
+			},
+		})
+	}) 
+	
+	
+	function logout()
+	{
+		localStorage.removeItem("useridentity");
+		localStorage.removeItem("userisadmin");
+		
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/index.html";
+		return false;
+	}
+	
+	
+	function populateStates(combo)
+	{
+		var states = ["Alabama", 
+			"Alaska", 
+			"Arizona", 
+			"Arkansas", 
+			"California", 
+			"Colorado", 
+			"Connecticut", 
+			"Delaware", 
+			"Florida", 
+			"Georgia", 
+			"Hawaii", 
+			"Idaho", 
+			"Illinois",
+			"Indiana", 
+			"Iowa", 
+			"Kansas", 
+			"Kentucky", 
+			"Louisiana", 
+			"Maine", 
+			"Maryland", 
+			"Massachusetts", 
+			"Michigan", 
+			"Minnesota", 
+			"Mississippi", 
+			"Missouri", 
+			"Montana",
+			"Nebraska", 
+			"Nevada", 
+			"New Hampshire", 
+			"New Jersey", 
+			"New Mexico", 
+			"New York", 
+			"North Carolina", 
+			"North Dakota", 
+			"Ohio", 
+			"Oklahoma", 
+			"Oregon", 
+			"Pennsylvania",
+			"Rhode Island", 
+			"South Carolina", 
+			"South Dakota", 
+			"Tennessee", 
+			"Texas",
+			"Utah", 
+			"Vermont", 
+			"Virginia", 
+			"Washington",
+			"West Virginia", 
+			"Wisconsin", 
+			"Wyoming",
+		];
+		
+		StatesAbbreviations = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" ];
+		length = states.length;
+		var i;
+		for(i=0;i<length;i++)
+		{
+			var op = new Option();
+			op.value = StatesAbbreviations[i];
+			op.text = states[i]
+			combo.options.add(op);
+		}
+	}
+</script>
+
+</body>
+
+</html>

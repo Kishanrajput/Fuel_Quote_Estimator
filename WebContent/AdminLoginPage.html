@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Login</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+					<a class="navbar-brand floatRight white" href="#" >Login</a>
+					<!--  <a class="navbar-brand floatRight white" href="#" >About Us</a> -->
+			
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+			<!-- Login page html -->
+			<div class="col-lg-4 d-flex justify-content-center h-100 loginDiv">
+
+		<div class="card col-lg-12">
+			<div class="card-header">
+				<h3 class="loginText">Admin Log In</h3>
+				
+			</div>
+			<div class="card-body col-lg-12">
+				<form>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-user" style="padding: 10px;"></span>
+							<span><input type="text" class="username form-control" placeholder="Username" id="username" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-eye-close" style="padding: 10px;"></span>
+							<span><input type="password" class="username form-control" placeholder="Password" id="password" required></span>
+						</div>
+						
+					</div>
+					
+					<div class="form-group" style="text-align: center;">
+						<input type="submit" value="Login" class="btn float-right login_btn" onclick="return validate()">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<span class="d-flex justify-content-center">
+					<a href="#" style="color:#9999ff">Forgot your password?</a>
+				</span><br>
+				
+			</div>
+		</div>
+	</div>
+			<!-- End of login html -->
+
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+
+<script>
+
+	function validate()
+	{
+		var username = document.getElementById("username");
+		var password = document.getElementById("password");
+		if(username.value.trim() == "")
+		{
+			alert("Username can not be empty!");
+			return false;
+		}
+		else if(password.value.trim() == "")
+		{
+			alert("Password can not be empty!");
+			return false;
+		} 
+		if(username.value.trim().indexOf(' ') >= 0)
+		{
+			alert("Incorrect username, please try again.");
+			username.value = "";
+			password.value = "";
+			return false;
+		}
+		else if(password.value.trim().indexOf(' ') >= 0)
+		{
+			alert("Incorrect Password, please try again.");
+			password.value = "";
+			return false;
+		}
+		
+		var delay = {
+				loader: $("<div />", {class: "loader"} ),
+				container: $('body')
+		}
+		
+		var dict = {};
+		dict['username'] = username.value;
+		dict['password'] = password.value;
+		var dta = JSON.stringify(dict);
+		//alert(dta);
+		
+		$.ajax({
+			type:'POST',
+			contentType: 'application/json',
+			data: dta,
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/auth/validate',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+				
+				$('.loader').toggle();
+				
+				if(data == "isAdmin = 1")
+				{
+					localStorage.setItem("adminuser", 100);
+					window.location ="http://localhost:8080/Fuel_Price_Predictor/ViewFuelQuote.html";	
+				}
+				else if (data == "ProfileComplete = 0" || data == "ProfileComplete = 1")
+				{
+					alert("These Credentails do not belong to Admin!");
+				}
+				else{
+					alert(data);	
+				}
+					
+			},
+		})
+		
+		return false;
+	}
+
+</script>
+
+</body>
+
+
+
+
+
+</html>

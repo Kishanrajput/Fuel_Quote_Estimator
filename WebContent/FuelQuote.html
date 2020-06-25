@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Get Fuel Quote</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTb" style="margin: 0px; padding:0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+						<div class="user_dropdown" style="display:none">
+							<!--  <div class="dropdown_action" onclick="#">About Us</div> -->
+							<div class="dropdown_action" onclick="naviateToProfile()">User Profile</div>
+							<div class="dropdown_action" onclick="navigateToFuelquote()">Fuel Quote</div>
+							<div class="dropdown_action" onclick="return logout()">Log Out</div>
+						</div>
+						<div class="glyphicon glyphicon-user userIcon" onclick="openDropdown()"></div>
+					<!-- Will static about us page at end! -->
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<!-- Register page -->
+			<div class="col-lg-10 col-lg-offset-1">
+
+				<div class="col-lg-5 FuelQuoteDiv">
+					<div class="card col-lg-12" style="height: auto;">
+						<div class="card-header">
+							<h3 class="profileText">Your Fuel Quote</h3>
+						</div>
+						<div class="card-body col-lg-12">
+							<form>
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Number of
+											Gallons* </span> <span><input type="number" min=1
+											class="parameter-input form-control" placeholder=""
+											id="ngallons" required></span>
+									</div>
+								</div>
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Delivery
+											Address* </span> <span><textarea id="addressfield"
+												class="parameter-input form-control" rows="5" cols="20"
+												disabled>Client Address Fetched from Database!</textarea></span>
+									</div>
+								</div>
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Delivery Date*
+										</span> <span>
+										<input type="date" min=""
+											class="parameter-input form-control" id="deliverydate"
+											required></span>
+									</div>
+								</div>
+
+								<div class="form-group" style="text-align: center;">
+									<input type="submit" value="Get Quote"
+										class="btn float-right login_btn"
+										onclick=" return validate1()">
+										
+								</div>
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Price per
+											gallon </span> <span><input type="text"
+											class="parameter-input form-control" disabled id="tprice"></span>
+									</div>
+								</div>
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">discount </span> <span><input
+											type="text" class="parameter-input form-control" disabled
+											id="discount"></span>
+									</div>
+								</div>
+
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Transportation
+											per gallon </span> <span><input type="text"
+											class="parameter-input form-control" disabled id="tpergallon"></span>
+									</div>
+								</div>
+
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Final Price per
+											gallon </span> <span><input type="text"
+											class="parameter-input form-control" disabled id="finalprice"></span>
+									</div>
+								</div>
+
+								<div class="input-group form-group col-lg-12 top-10">
+									<div class="textLabel">
+										<span class="parameter-label floatLeft">Total Amount
+											Due </span> <span><input type="text"
+											class="parameter-input form-control" disabled id="tamount"></span>
+									</div>
+								</div>
+
+								<div class="form-group" style="text-align: center;">
+									<input type="submit" value="Check Out"
+										class="btn float-right login_btn" onclick=" return store()">
+										
+									<input type="submit" value="Reset"
+										class="btn float-right login_btn"
+										onclick=" return resetgetquote()">
+								</div>
+
+							</form>
+
+						</div>
+
+
+
+
+					</div>
+				</div>
+
+
+				<div class="col-lg-7  FuelQuoteDiv">
+					<div class="card col-lg-12" style="height: auto; padding: 10px">
+						<div class="card-header">
+							<h3 class="profileText">Your Fuel Quote History</h3>
+						</div>
+						<div class="card-body col-lg-12" id="historyDetails">
+							<form onsubmit="successfull()">
+								<div class="input-group form-group col-lg-5 top-10 floatLeft">
+									<div class="textLabel">
+										<span class="quoteh-label floatLeft">From* </span> <span><input
+											type="date" class="quoteh-input form-control" id="fromdate"
+											required></span>
+									</div>
+								</div>
+								<div
+									class="input-group form-group col-lg-5 col-lg-offset-1 top-10 floatLeft">
+									<div class="textLabel">
+										<span class="quoteh-label floatLeft">To* </span> <span><input
+											type="date" class="quoteh-input form-control"
+											style='margin-left: -20px' id="todate" required></span>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-1 top-10 floatRight"
+									style="text-align: center;">
+									<input type="submit" value="Go"
+										class="btn float-right quoteh_btn"
+										onclick="return validate2()">
+								</div>
+							</form>
+	
+							<div>
+							<table id="historytable">
+								<tr>
+									<th style="width:2%">#</th>
+									<th style="width:3%">No.of Gallons</th>
+									<th style="width:15%">Delivery Date</th>
+									<th style="width:10%">Price/ Gallon</th>
+									<th style="width:10%">Discount</th>
+									<th style="width:10%">Transportation/ Gallon</th>
+									<th style="width:10%">Final Price</th>
+									<th style="width:10%">Total Amount</th>
+								</tr>
+								<tbody id="dataEle">
+
+								</tbody>
+
+							
+							</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- End of register -->
+		</div>
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block"></div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+	
+	
+	<script>
+	
+	function resetgetquote()
+	{
+		var ngallons = document.getElementById("ngallons").value = "";
+		var ddate = document.getElementById("deliverydate").value = "";
+		var tprice = document.getElementById("tprice").value = "";
+		var discount = document.getElementById("discount").value = "";
+		var transportation = document.getElementById("tpergallon").value = "";
+		var fianlprice = document.getElementById("finalprice").value = "";
+		var tamount = document.getElementById("tamount").value = "";
+	}
+	
+		window.onload = setDatepicker;
+		
+		function setDatepicker(){
+			var dtToday = new Date();
+			  var month = dtToday.getMonth() + 1;     // getMonth() is zero-based
+			  var day = dtToday.getDate();
+			  var year = dtToday.getFullYear();
+			  if(month < 10)
+			      month = '0' + month.toString();
+			  if(day < 10)
+			      day = '0' + day.toString();
+
+			  var maxDate = year + '-' + month + '-' + day;
+			  $('#deliverydate').attr('min', maxDate);
+			  
+		}
+	
+		function openDropdown(){
+			$('.user_dropdown').toggle();
+		}
+	
+		function naviateToProfile(){
+			window.location ="http://localhost:8080/Fuel_Price_Predictor/ProfileManagement.html";
+		}
+		
+		function validate1() {
+			var ngallons = document.getElementById("ngallons");
+			var ddate = document.getElementById("deliverydate");
+			var tprice = document.getElementById("tprice");
+			var discount = document.getElementById("discount");
+			var transportation = document.getElementById("tpergallon");
+			var fianlprice = document.getElementById("finalprice");
+			var tamount = document.getElementById("tamount");
+
+			if (ngallons.value == "" || ngallons.value <= 0) {
+				alert("Invalid value in number of gallons field!");
+				return false;
+			} else if (ddate.value == "") {
+				alert("Delivery date can not be empty!");
+				return false;
+			}
+	
+			
+			var today = new Date();
+			month = today.getMonth() + 1;
+			if(month < 9){
+				month = "0"+month;
+			}
+			day = today.getDate();
+			if(day < 9){
+				day = "0"+day;
+			}
+			var date = today.getFullYear()+'-'+month+'-'+day;
+			//alert(ddate.getTime());
+			//alert(date);
+			if(ddate.value <= date){
+				alert("Please select a future date");
+				return false;
+			}
+			
+			
+			var dict = {};
+			dict['username'] = localStorage.getItem("useridentity");
+			dict['ngallons'] = ngallons.value.trim();
+			dict['ddate'] = ddate.value.trim();
+
+			var dta = JSON.stringify(dict);
+			//alert(dta);
+
+			$
+					.ajax({
+						type : 'POST',
+						contentType : 'application/json',
+						dataType : 'json',
+						data : dta,
+						url : 'http://localhost:8080/Fuel_Price_Predictor/api/quote/getQuote',
+						beforeSend: function(){
+							$('.loader').toggle();
+						},
+						success : function(data) {
+							
+							$('.loader').toggle();
+							
+							//data = JSON.stringify(data);
+							//alert(data.perGallon);
+							tprice.value = data.perGallon;
+							discount.value = data.discount;
+							transportation.value = data.transportationCharge;
+							finalprice.value = data.finalPrice
+							tamount.value = data.totalamount;
+
+						},
+					})
+
+			return false;
+
+		}
+
+		function validate2() {
+			var fromdate = document.getElementById("fromdate");
+			var todate = document.getElementById("todate");
+
+			var table = document.getElementById("customers");
+			if (fromdate.value == "") {
+				alert("From date field is empty! Please select a date.");
+				return false;
+			} else if (todate.value == "") {
+				alert("To date field is empty! Please select a date.");
+				return false;
+			}
+
+			else if (fromdate.value > todate.value) {
+				alert("Invalid date range!");
+				fromdate.value = "";
+				todate.value = "";
+				return false;
+			}
+
+			var dict = {};
+			dict['username'] = localStorage.getItem("useridentity");
+			dict['fromdate'] = fromdate.value.trim();
+			dict['todate'] = todate.value.trim();
+
+			var dta = JSON.stringify(dict);
+			//alert(dta);
+
+			$
+					.ajax({
+						type : 'GET',
+						contentType : 'application/json',
+						//data : dta,
+						dataType : 'json',
+						url : 'http://localhost:8080/Fuel_Price_Predictor/api/quote/all?username='
+								+ dict['username']
+								+ '&fromdate='
+								+ dict['fromdate']
+								+ '&todate='
+								+ dict['todate'],
+						beforeSend: function(){
+								$('.loader').toggle();
+						},
+						success : function(data) {
+							
+							$('.loader').toggle();
+							
+							//data = JSON.stringify(data);
+							//console.log(data[0].date);
+							//alert(data);
+							if(data.length <= 0){
+								alert("No history exist for selected date range.");
+							}
+							var rows = "";
+							for (var i = 0; i < data.length; i++) {
+
+								var json = data[i];
+								console.log("Object : ", json);
+								rows = rows + "<tr><td>" + (i + 1)
+										+ " </td> <td>" + json.numberOfGallons
+										+ " </td> <td> " + json.deliveryDateStr
+										+ " </td> <td> " + json.perGallon
+										+ " </td> <td>" + json.discount
+										+ " </td><td> "
+										+ json.transportationRate
+										+ "</td><td> "
+										+ json.priceAfterDiscount
+										+ "</td> <td> " + json.totalAmount
+										+ "</th></tr>";
+
+							}
+
+							$("#dataEle").html("");
+							$(rows).appendTo("#dataEle");
+							//alert(rows);
+							//$('#historytable tr').not(':first').remove();
+							//$("#historytable tr:first").after(rows);
+
+						},
+					})
+
+			return false;
+		}
+
+		function store() {
+			var ngallons = document.getElementById("ngallons");
+			var ddate = document.getElementById("deliverydate");
+			var tprice = document.getElementById("tprice");
+			var discount = document.getElementById("discount");
+			var transportation = document.getElementById("tpergallon");
+			var fianlprice = document.getElementById("finalprice");
+			var tamount = document.getElementById("tamount");
+
+			if (tprice.value == "") { // Checking one variable is enough since they are all populated together and disabled fields.
+				alert("Please get a Quote first!");
+				return false;
+			}
+
+			else if (ngallons.value == "" || ngallons.value <= 0) {
+				alert("Invalid value in number of gallons field!");
+				return false;
+			} else if (ddate.value == "") {
+				alert("Delivery date can not be empty!");
+				return false;
+			}
+
+			var dict = {};
+			dict['username'] = localStorage.getItem("useridentity");
+			dict['ngallons'] = ngallons.value.trim();
+			dict['ddate'] = ddate.value.trim();
+			dict['price'] = tprice.value.trim()
+			dict['discount'] = discount.value.trim();
+			dict['transportation'] = transportation.value.trim();
+			dict['finalprice'] = finalprice.value.trim();
+			dict['total'] = tamount.value.trim();
+
+			var dta = JSON.stringify(dict);
+			//alert(dta);		
+			$
+					.ajax({
+						type : 'POST',
+						contentType : 'application/json',
+						data : dta,
+						dataType : 'json',
+						url : 'http://localhost:8080/Fuel_Price_Predictor/api/quote/save',
+						success : function(data) {
+							
+							//$('.loader').css("height", "130%");
+							//$('.loader').toggle();
+							
+							//data = JSON.stringify(data);
+							//alert(data.perGallon);
+							alert("Your Order is placed successfully. Fuel will be delivered on "+ddate.value.trim());
+							if (data.message == "Your Order is placed successfully. Fuel will be delivered in 3 business days.") {
+
+								ngallons.value = "";
+								ddate.value = "";
+								tprice.value = "";
+								discount.value = "";
+								transportation.value = "";
+								finalprice.value = "";
+								tamount.value = "";
+							}
+						},
+					})
+
+			return false;
+
+		}
+
+		function logout() {
+			localStorage.removeItem("useridentity");
+			localStorage.removeItem("userisadmin");
+
+			window.location = "http://localhost:8080/Fuel_Price_Predictor/index.html";
+			return false;
+		}
+
+		$(document)
+				.ready(
+						function() {
+
+							if (localStorage.getItem("useridentity") == null) {
+								window.location = "http://localhost:8080/Fuel_Price_Predictor/index.html";
+							}
+							
+							var dict = {};
+							dict['username'] = localStorage.getItem("useridentity");
+							var dta = JSON.stringify(dict);
+							
+							$.ajax({
+								type:'POST',
+								contentType: 'application/json',
+								data: dta,
+								dataType: 'json',
+								url: 'http://localhost:8080/Fuel_Price_Predictor/api/user/populate',
+								beforeSend: function(){
+									$('.loader').toggle();
+								},
+								success: function(data) {
+									
+									$('.loader').toggle();
+									
+									if(data.Error == "No Error")
+									{
+										var address = data.add1+", "+data.add2+", "+data.city+", "+data.state+" "+data.zip;
+										document.getElementById("addressfield").value = address;
+									}
+									else if(data.Error == "NoProfile")
+									{
+										alert("Please create your profile, you will be redirected to profile management page.");
+										window.location = "http://localhost:8080/Fuel_Price_Predictor/ProfileManagement.html";
+									}
+									else{
+										alert(data.Error);
+									}
+									
+								},
+							})
+							
+							
+						})
+	</script>
+
+
+</body>
+
+
+
+
+
+</html>

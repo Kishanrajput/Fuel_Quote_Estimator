@@ -1,0 +1,422 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+#mainPage {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	background: url("oil.jpeg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.white {
+	color: white;
+}
+
+.centerPanel {
+	/* border: 1px solid; */
+	background-color: #f0ead6;
+	padding: 10px;
+	position: absolute;
+	left: 23%;
+	right: 23%;
+	height: 80%;
+	top: 11%;
+	bottom: 11%;
+	box-shadow: 10px 10px 10px 8px #696969;
+	right: 23%;
+	height: 80%;
+	top: 11%;
+	bottom: 11%;
+}
+
+.panel {
+	width: 49%;
+	height: 100%;
+}
+
+#leftPanel {
+	background-color: #00cc99;
+}
+
+#rightPanel {
+	background-color: white;
+}
+
+.floatLeft {
+	float: left !important;
+}
+
+.floatRight {
+	float: right !important;
+}
+
+#deliveryDiv {
+	width: 228px;
+	height: 78px;
+	margin-top: 30px;
+	margin-left: 124px;
+}
+
+#fuelSpan {
+	margin-left: 81px;
+}
+
+#priceSpan {
+	width: 126px;
+	height: 65px;
+	margin-right: 30px;
+}
+
+#pp_img {
+	height: 65px;
+	width: 94px;
+}
+
+#loginButton {
+	color: white;
+	font-weight: bold;
+	border: 2px solid;
+	margin-bottom: 11px;
+}
+
+#registerButton {
+	background-color: white;
+	color: #00cc99;
+	font-weight: bold;
+}
+
+/* .loginText {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 5px;
+} */
+.button {
+	margin-left: 96px;
+	width: 159px;
+	height: 34px;
+	border: 1px solid;
+	border-radius: 20px;
+}
+
+.background-img {
+	width: 100%;
+	height: 100%;
+}
+
+.buttonDiv {
+	height: 80px;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.imgDiv {
+	margin-top: 58px;
+}
+
+#registerText {
+	
+}
+
+/* ------------------New CSS-------------------------*/
+.floatNone {
+	float: none;
+}
+
+.header-nav {
+	/* background-color: #e3f2fd; */
+	padding: 0px !important;
+	margin-bottom: 10px !important;
+}
+
+.headerTab {
+	background-color: rgba(0, 0, 0, 0.5) !important;
+	padding-left: 30px;
+	padding-right: 30px;
+	color: black;
+	width : 102%;
+}
+
+.headerTb {
+	background-color: rgba(0, 0, 0, 0.5) !important;
+	padding-left: 30px;
+	padding-right: 30px;
+	color: white;
+	width : 100%;
+}
+
+.header {
+	padding: 0px !important;
+
+}
+
+.companyLogo {
+	font-weight: bold;
+	color: #46270C;
+	font-size: 20px;
+}
+
+.loginDiv {
+	position: absolute !important;
+	z-index: 5;
+	left: 34%;
+	top: 24%;
+}
+
+.loginText {
+	margin-top: 9px !important;
+}
+
+<!--
+Login
+-->.container {
+	height: 100%;
+	align-content: center;
+}
+
+.card {
+	height: 284px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 400px;
+	background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.social_icon span {
+	font-size: 60px;
+	margin-left: 10px;
+	color: #FFC312;
+}
+
+.social_icon span:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.card-header h3 {
+	color: white;
+}
+
+.card-header h4 {
+	color: white;
+	margin-bottom: -8px ;
+}
+
+.social_icon {
+	position: absolute;
+	right: 20px;
+	top: -45px;
+}
+
+.input-group-prepend span {
+	background-color: #DAA552;
+	color: black;
+	border: 0 !important;
+	background-color: #DAA552;
+}
+
+input:focus {
+	outline: 0 0 0 0 !important;
+	box-shadow: 0 0 0 0 !important;
+}
+
+.remember {
+	color: white;
+}
+
+.remember input {
+	width: 20px;
+	height: 20px;
+	margin-left: 15px;
+	margin-right: 5px;
+}
+
+.login_btn {
+	color: black;
+	background-color: #DAA552;
+	width: 100px;
+}
+
+.login_btn:hover {
+	color: black;
+	background-color: white;
+}
+
+.links {
+	color: white;
+}
+
+.links a {
+	margin-left: 4px;
+}
+
+.card-header {
+	padding: 6px;
+	border-bottom: 1px solid rgba(0, 0, 0, .125);
+	margin-bottom: 20px;
+}
+
+.username {
+	width: 90% !important;
+	margin-top: 1px !important;
+}
+
+.username-profile {
+	width: 70% !important;
+	margin-top: 1px !important;
+}
+
+.input-group-prepend-profile span {
+	background-color: #DAA552;
+	color: black;
+	border: 0 !important;
+	background-color: #DAA552;
+	width: 30% !important;
+}
+
+.textLabel {
+	color: white;
+	font-size: 16px;
+}
+
+.user-profile-label{
+	padding: 10px; 
+	text-align: left;
+	width:30%;
+}
+
+.ProfileDiv {
+	position: absolute !important;
+	z-index: 5;
+	left: 34%;
+	top: 15%;
+}
+
+.top-10{
+	margin-top: -5px;
+}
+
+.profileText {
+	margin-top: 5px !important;
+}
+
+.parameter-label{
+	padding: 8px; 
+	text-align: left;
+	width:50%;
+}
+
+.parameter-input {
+	width: 50% !important;
+	margin-top: 1px !important;
+}
+
+.FuelQuoteDiv {
+	z-index: 5;
+	margin-top: 8%;
+}
+
+.quoteh-label{
+	padding: 8px; 
+	text-align: left;
+	width:30%;
+}
+
+.quoteh-input {
+	width: 70% !important;
+	margin-top: 1px !important;
+}
+
+.quoteh_btn {
+	color: black;
+	background-color: #DAA552;
+}
+
+
+#historytable {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#historytable td, #historytable th {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#historytable tr:nth-child(even){background-color: #f2f2f2;}
+#historytable tr:nth-child(odd){background-color: #a2a2a2;}
+
+#historytable tr:hover {background-color: #ddd;}
+
+#historytable th {
+	width: 6%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #DAA552;
+  color: white;
+}
+
+#dataEle td{
+	text-align:center;
+	padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.userIcon{
+	cursor: pointer;
+	height: 48px;
+    width: 51px;
+    background-color: rgb(0,0,0,0.2);
+    padding: 17px;
+    border-radius: 37px;
+    float: right;
+    margin-top: 4px;
+    margin-right: 6px;
+}
+
+.user_dropdown{
+	width: 121px;
+    float: right;
+    z-index: 7;
+    color: white;
+    margin-top: 65px;
+    position: absolute;
+    left: 85%;
+    font-weight: bold;
+    text-align: center;
+    padding-right: 23px;
+    
+}
+
+.dropdown_action{
+	width: 98%;
+    height: 31px;
+    background-color: rgb(0,0,0,0.5);
+    padding: 5px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+#historyDetails{
+	height: 561px;
+    overflow: auto;
+}
+
+.loader{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(255, 255, 255, 0.8) url("loading.gif") no-repeat 50% 50%;
+	z-index:1000;
+	display:None;
+}

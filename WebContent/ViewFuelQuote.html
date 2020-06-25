@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin - View Fuel Quote</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+				
+					<div class="user_dropdown" style="display:none">
+						<!--  <div class="dropdown_action" href="#">About Us</div> -->
+						<div class="dropdown_action" onclick="navigateToParameter()">Parameters</div>
+						<div class="dropdown_action" onclick="navigateToHistory()">View History</div>
+						<div class="dropdown_action" onclick="return logout()">Log Out</div>
+					</div>
+					<div class="glyphicon glyphicon-user userIcon" onclick="openDropdown()"></div>
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+		<!-- Register page -->
+
+		<div class="col-lg-10 col-lg-offset-1 FuelQuoteDiv">
+		<div class="card col-lg-12"  style="height: auto;padding:10px">
+			<div class="card-header">
+				<h3 class="profileText">Your Fuel Quote History</h3>
+			</div>
+			<div class="card-body col-lg-12">
+				<form>
+					<div class="input-group form-group col-lg-3 top-10 floatLeft">
+						<div class="textLabel">
+							<span class="quoteh-label floatLeft">From*  </span>
+							<span><input type="date" class="quoteh-input form-control" id="fromdate" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-3 col-lg-offset-1 top-10 floatLeft">
+						<div class="textLabel">
+							<span class="quoteh-label floatLeft">To*  </span>
+							<span><input type="date" class="quoteh-input form-control" style='margin-left:-20px' id="todate" required></span>
+						</div>
+					</div>
+
+			<!--  		<div class="input-group form-group col-lg-3 top-10 floatLeft" style="margin-left:30px">
+						<div class="textLabel">
+							<span class="quoteh-label floatLeft">Client  </span>
+							<span><Select class="quoteh-input form-control" style='margin-left:-20px' id="user">
+									<option value="None">All</option>
+									</Select>
+							</span>
+						</div>
+					</div>  -->
+
+					<div class="form-group col-lg-1 top-10 floatRight" style="text-align: center;">
+						<input type="submit" value="Go" class="btn float-right quoteh_btn" onclick="return validate()">
+					</div>
+				</form>
+
+				<table id="historytable">
+					  <tr>
+					    <th>#</th>
+					    <th style="width:5%">Client Id</th>
+					    <th style="width:10%">Name</th>
+					    <th style="width:20%">Delivery Address</th>
+					    <th style="width:10%">Gallons</th>
+					    <th style="width:10%">Delivery Date</th>
+					    <th style="width:10%">TransportationRate</th>
+					    <th style="width:10%">Discount</th>
+					    <th style="width:10%">Price</th>
+					    <th style="width:10%">Amount</th>
+					  </tr>
+					  
+					  <tbody id="dataEle">
+					  
+					  </tbody>
+					  
+					</table>
+
+		</div>			
+					
+			</div>
+		</div>
+
+		<!-- End of register -->
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+	
+	
+	
+	
+<script>
+
+	function openDropdown(){
+		$('.user_dropdown').toggle();
+	}
+	
+	function navigateToParameter(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/Parameters.html";
+	}
+	
+	function navigateToHistory(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/ViewFuelQuote.html";
+	}
+	
+	function validate()
+	{
+		//console.log("Validate");
+		var fromdate = document.getElementById("fromdate");
+		var todate = document.getElementById("todate");
+		var userelement = document.getElementById("user");
+		//var user = userelement.options[userelement.selectedIndex];
+		
+		if(fromdate == "")
+		{
+			alert("From date field is empty! Please select a date.");
+			return false;
+		}
+		else if(todate == "")
+		{
+			alert("To date field is empty! Please select a date.");
+			return false;
+		} 
+		if(fromdate.value > todate.value)
+		{
+			alert("Invalid date range!");
+			fromdate.value = "";
+			todate.value = "";
+			return false;
+		}
+		
+		
+		var dict = {};
+		//dict['username'] = user.value;
+		dict['fromdate'] = fromdate.value.trim();
+		dict['todate'] = todate.value.trim();
+		
+		var dta = JSON.stringify(dict);
+		
+		$.ajax({
+			type : 'GET',
+			contentType : 'application/json',
+			//data : dta,
+			dataType : 'json',
+			url : 'http://localhost:8080/Fuel_Price_Predictor/api/quote/all?username='
+					+ dict['username']
+					+ '&fromdate='
+					+ dict['fromdate']
+					+ '&todate='
+					+ dict['todate'],
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success : function(data) {
+				
+				$('.loader').toggle();
+				
+				
+				if(data.length <= 0){
+					alert("No history exist for selected date range.");
+				}
+				var rows = "";
+				for (var i = 0; i < data.length; i++) {
+
+					var json = data[i];
+					//console.log("Object : ", json);
+					rows = rows + "<tr><td>" + (i + 1)
+							+ " </td> <td>" + json.userId
+							+ " </td> <td>" + json.firstName
+							+ " </td> <td> " + json.address
+							+ " </td> <td> " + json.numberOfGallons 
+							+ " </td> <td>" + json.deliveryDateStr
+							+ "</td><td> "
+							+ json.transportationRate
+							+ " </td><td> " + json.discount
+							+ " </td><td> "
+							+ json.priceAfterDiscount
+							+ "</td> <td> " + json.totalAmount
+							+ "</td></tr>";
+
+				}
+
+				$("#dataEle").html("");
+				$(rows).appendTo("#dataEle");
+				//alert(rows);
+				//$('#historytable tr').not(':first').remove();
+				//$("#historytable tr:first").after(rows);
+				
+
+			},
+		})
+		
+		
+		return false;
+	}
+	
+	
+	function logout()
+	{
+		localStorage.removeItem("adminuser");	
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/AdminLoginPage.html";
+		return false;
+	}
+	
+$(document).ready(function() {
+		
+		if(localStorage.getItem("adminuser") != 100)
+		{
+			window.location ="http://localhost:8080/Fuel_Price_Predictor/AdminLoginPage.html";
+		}
+})
+
+	
+	
+</script>
+
+
+</body>
+
+</html>

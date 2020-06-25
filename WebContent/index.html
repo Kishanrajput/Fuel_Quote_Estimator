@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Log In</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+					<a class="navbar-brand floatRight white" href="index.html" >Login</a>
+					<!--  <a class="navbar-brand floatRight white" href="#" >About Us</a> --> 
+					
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+			<!-- Login page html -->
+			<div class="col-lg-4 d-flex justify-content-center h-100 loginDiv">
+
+		<div class="card col-lg-12">
+			<div class="card-header">
+				<h3 class="loginText">Log In</h3>
+				
+			</div>
+			<div class="card-body col-lg-12">
+				<form>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-user" style="padding: 10px;"></span>
+							<span><input type="text" class="username form-control" placeholder="Username" id="username" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-eye-close" style="padding: 10px;"></span>
+							<span><input type="password" class="username form-control" placeholder="Password" id="password" required></span>
+						</div>
+						
+					</div>
+					
+					<div class="form-group" style="text-align: center;">
+						<input type="submit" value="Login" class="btn float-right login_btn" onclick="return validate()">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<span class="d-flex justify-content-center">
+					<a href="#" style="color:#9999ff">Forgot your password?</a>
+				</span><br>
+				<span class="floatLeft d-flex justify-content-center links">
+					Don't have an account?<a href="signup.html" style="color:#9999ff">Sign Up</a>
+				</span>
+				
+			</div>
+		</div>
+	</div>
+			<!-- End of login html -->
+
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+	
+<script>
+	function validate()
+	{
+		var username = document.getElementById("username");
+		var password = document.getElementById("password");
+		
+		/*if(username == "")
+		{
+			alert("Username can not be empty!");
+			return false;
+		}
+		else if(password == "")
+		{
+			alert("Password can not be empty!");
+			return false;
+		}*/
+		
+		if(username.value.trim().indexOf(' ') >= 0)
+		{
+			alert("Username can not have whitespace!");
+			username.value = "";
+			password.value = "";
+			return false;
+		}
+		else if(password.value.trim().indexOf(' ') >= 0)
+		{
+			alert("Password can not containe whitespaces!");
+			password.value = "";
+			return false;
+		}
+		
+		var dict = {};
+		dict['username'] = username.value.trim();
+		dict['password'] = password.value.trim();
+		var dta = JSON.stringify(dict);
+		//alert(dta);
+		$.ajax({
+			type:'POST',
+			contentType: 'application/json',
+			data: dta,
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/auth/validate',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+				
+				$('.loader').toggle();
+				
+				if(data == "ProfileComplete = 0")
+				{
+					localStorage.setItem("useridentity",username.value.trim());
+					window.location ="http://localhost:8080/Fuel_Price_Predictor/ProfileManagement.html";	
+				}
+				else if(data == "ProfileComplete = 1")
+				{
+					localStorage.setItem("useridentity", username.value.trim());
+					window.location ="http://localhost:8080/Fuel_Price_Predictor/FuelQuote.html";	
+				}
+				else if(data != "ProfileComplete = 0" || data != "ProfileComplete = 1"){
+					alert("Incorrect Credentials");	
+				}
+					
+			},
+		})
+		
+		
+		return false;
+	}
+</script>
+
+
+</body>
+
+
+
+
+
+</html>

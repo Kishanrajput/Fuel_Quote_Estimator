@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+					<!--  <a class="navbar-brand floatRight white" href="#" >About Us</a>  -->
+					<a class="navbar-brand floatRight white" href="index.html" >Log In</a>
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+		<!-- Register page -->	
+		<div class="col-lg-4 d-flex justify-content-center h-100 loginDiv">
+		<div class="card col-lg-12">
+			<div class="card-header">
+				<h3 class="loginText">Sign Up</h3>
+				
+			</div>
+			<div class="card-body col-lg-12">
+				<form>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-user" style="padding: 10px;"></span>
+							<span><input type="text" class="username form-control" placeholder="Username" id="username" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-eye-close" style="padding: 10px;"></span>
+							<span><input type="password" class="username form-control" placeholder="Password" id="password" required></span>
+						</div>
+					</div>
+					
+					<div class="input-group form-group col-lg-12">
+						<div class="input-group-prepend">
+							<span class="floatLeft input-group-text glyphicon glyphicon-eye-close" style="padding: 10px;"></span>
+							<span><input type="password" class="username form-control" placeholder="Confirm Password" id="cpassword" required></span>
+						</div>
+					</div>
+					
+					<div class="form-group" style="text-align: center;">
+						<input type="submit" value="Register" class="btn float-right login_btn" onclick="return validate()">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- End of register -->
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+	
+<script>
+	function validate()
+	{
+		var username = document.getElementById("username");
+		var password = document.getElementById("password");
+		var cpassword = document.getElementById("cpassword");
+		/*if(username == "")
+		{
+			alert("Username can not be empty!");
+			return false;
+		}
+		else if(password == "")
+		{
+			alert("Password can not be empty!");
+			return false;
+		}*/
+		
+		var passwordvalue = password.value.trim();
+		var cpasswordvalue = cpassword.value.trim();
+		
+		if(username.value.trim().indexOf(' ') >= 0)
+		{
+			alert("Username can not have whitespace!");
+			username.value = "";
+			return false;
+		}
+		else if(passwordvalue.indexOf(' ') >= 0)
+		{
+			alert("Password can not containe whitespaces!");
+			password.value = "";
+			cpassword.value = "";
+			return false;
+		}
+		else if(passwordvalue.length <= 5)
+		{
+			alert("Password can not be less than 6 characters long!");
+			return false;
+		}
+		else if(passwordvalue != cpasswordvalue)
+		{
+			alert("Password did not match, please try again!");
+			password.value = "";
+			cpassword.value = "";
+			return false;
+		}
+		
+		
+		var dict = {};
+		dict['username'] = username.value;
+		dict['password'] = password.value;
+		var dta = JSON.stringify(dict);
+		//alert(dta);
+		
+		$.ajax({
+			type:'POST',
+			contentType: 'application/json',
+			data: dta,
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/auth/create',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+				
+				$('.loader').toggle();
+				
+				if(data == "Success")
+				{
+					window.location ="http://localhost:8080/Fuel_Price_Predictor/index.html";	
+				}
+				else{
+					alert(data);	
+				}
+					
+			},
+		})
+		
+		return false;
+	}
+</script>
+
+
+</body>
+
+
+
+
+
+</html>

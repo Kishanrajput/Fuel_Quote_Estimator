@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Quote Parameters</title>
+
+<link rel="stylesheet" href="./css/style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+	<div>
+
+		<div class="row headerTab" style="margin: 0px;">
+			<div class="header col-lg-12">
+				<!-- <div class="col-lg-6 col-md-6 floatLeft companyLogo">
+					PMK Oil & Gas Retailers
+				</div> -->
+				<nav class="navbar transparent header-nav col-lg-6 col-lg-offset-6">
+					<!-- Navbar content -->
+					<div class="user_dropdown" style="display:none">
+						<!--  <div class="dropdown_action" href="#">About Us</div> -->
+						<div class="dropdown_action" onclick="navigateToParameter()">Parameters</div>
+						<div class="dropdown_action" onclick="navigateToHistory()">View History</div>
+						<div class="dropdown_action" onclick="return logout()">Log Out</div>
+					</div>
+					<div class="glyphicon glyphicon-user userIcon" onclick="openDropdown()"></div>
+				</nav>
+			</div>
+		</div>
+
+
+		<div class="row">
+		
+		<!-- Register page -->	
+		<div class="col-lg-4 d-flex justify-content-center h-100 ProfileDiv">
+		<div class="card col-lg-12"  style="height: auto;">
+			<div class="card-header">
+				<h3 class="profileText">Fuel Quote Parameters</h3>
+			</div>
+			<div class="card-body col-lg-12">
+				<form >
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft" id="resp"></span>
+							<span></span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft">Base Rate(%)*  </span>
+							<span><input type="number" class="parameter-input form-control" id="baserate" required></span>
+						</div>
+					</div>
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft">Profit Margin(%)*  </span>
+							<span><input type="number" class="parameter-input form-control" placeholder="" id="profitmargin" required></span>
+						</div>
+					</div>
+					
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft">Transportation Rate/mile(%)*  </span>
+							<span><input type="number" class="parameter-input form-control" placeholder="" id="trpm" required></span>
+						</div>
+					</div>
+
+					<div class="card-header">
+						<h4 class="profileText">Seasonal Rate Fluctuation percentage</h4>
+					</div>
+					
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft">Summer* </span>
+							<span><input type="number" class="parameter-input form-control" placeholder="" id="fluctuationsummer" required></span>
+						</div>
+					</div>
+
+					<div class="input-group form-group col-lg-12 top-10">
+						<div class="textLabel">
+							<span class="parameter-label floatLeft">Winter* </span>
+							<span><input type="number" class="parameter-input form-control" placeholder="" id="fluctuationwinter" required></span>
+						</div>
+					</div>					
+					
+					<div class="form-group" style="text-align: center;">
+						<input type="submit" value="Update" class="btn float-right login_btn" onclick="return validate()">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+		<!-- End of register -->
+		</div>
+
+
+		
+		
+		<footer class="page-footer footer">
+			<div class="col-md-10 col-lg-12 center-block">
+			</div>
+		</footer>
+	</div>
+	
+	<!-- Loading spinner div -->
+	<div class="loader"></div>
+	
+<script>
+
+	function openDropdown(){
+		$('.user_dropdown').toggle();
+	}
+	
+	function navigateToParameter(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/Parameters.html";
+	}
+
+	function navigateToHistory(){
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/ViewFuelQuote.html";
+	}
+
+	function validate()
+	{
+		var baseRate = document.getElementById("baserate").value;
+		var profitMargin = document.getElementById("profitmargin").value;
+		var fsummer = document.getElementById("fluctuationsummer").value;
+		var fwinter = document.getElementById("fluctuationwinter").value;
+		var trpm = document.getElementById("trpm").value;
+		
+		if(baseRate == "")
+		{
+			alert("Please enter baserate!");
+			return false;
+		}
+		else if(profitMargin=="")
+		{
+			alert("Please enter profit margin!");
+			return false;
+		}
+		else if(fsummer == "")
+		{
+			alert("Please enter rate fluctuation percentage for summer!");
+			return false;	
+		}
+		else if(fwinter == "")
+		{
+			alert("Please enter rate fluctuation percentage for winter!");
+			return false;
+		} 
+		
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+
+		today = mm + '/' + dd + '/' + yyyy;
+		//alert(today);
+		var dict = {};
+		dict['baserate'] = baseRate;
+		dict['profitmargin'] = profitMargin;
+		dict['trpm'] = trpm;
+		dict['fluctuationsummer'] = fsummer;
+		dict['fluctuationwinter'] = fwinter;
+		dict['startdate'] = today;
+		var dta = JSON.stringify(dict);
+		
+		
+		//return false;
+		//var dta = JSON.stringify({baserate:2.38, profitmargin:20, trpm:10, startdate:03-02-2019, fluctuationsummer:20, fluctuationwinter:30});
+		$.ajax({
+			type:'POST',
+			//dataType: 'json',
+			contentType: 'application/json',
+			data: dta,
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/param/update',
+			beforeSend: function(){
+				$('.loader').toggle();
+			},
+			success: function(data) {
+				
+				$('.loader').toggle();
+				
+				alert(data);
+				
+			},
+		})
+		
+		return false;
+	}
+
+
+	function logout()
+	{
+		localStorage.removeItem("adminuser");
+		
+		window.location ="http://localhost:8080/Fuel_Price_Predictor/AdminLoginPage.html";
+		return false;
+	}
+	
+
+	$(document).ready(function() {
+		
+		if(localStorage.getItem("adminuser") != 100)
+		{
+			window.location ="http://localhost:8080/Fuel_Price_Predictor/AdminLoginPage.html";
+		}
+		
+		var baserate = document.getElementById('baserate');
+		var profitmargin = document.getElementById('profitmargin');
+		var trpm = document.getElementById('trpm');
+		var fsummer = document.getElementById('fluctuationsummer');
+		var fwinter = document.getElementById('fluctuationwinter');
+		$.ajax({
+			type:'GET',
+			dataType: 'json',
+			url: 'http://localhost:8080/Fuel_Price_Predictor/api/param/test',
+			success: function(data) {
+			// begin accessing JSON data here
+				//console.log(data[0].name)
+				baserate.value = data.baserate;
+				profitmargin.value = data.profitmargin;
+				trpm.value = data.trpm;
+				fsummer.value = data.fluctuationsummer;
+				fwinter.value = data.fluctuationwinter;
+				
+				
+			},
+		})
+	}) 
+
+	
+</script>
+
+
+</body>
+
+
+</html>
